@@ -21,7 +21,31 @@ const userSchema = new mongoose.Schema({
 	}
 });
 
-const User = mongoose.model("User", userSchema);
+// Function runs before each document in mongoose is saved
+userSchema.pre("save", async function() {
+	try {
+		if(!this.isModified("password")){
+			return next();
+		}
+		// Hashes password and saves
+		let hashedPassword = bcrypt.hash(this.password, 10);
+		this.password = hashedPassword;
+		return next();
+	} catch (err) {
+		return next(err);
+	}
+});
 
+// Compares password with user password
+userSchema.method.comparePassword = asyn function(candidatePassword, next) {
+	try {
+		let isMatch = await.bcrypt.compare(candidatePassword, this.password);
+		return isMatch;
+	} catch (err) {
+		return next(err);
+	}
+}
+
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
