@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
-		required: true;
+		required: true,
 		unique: true
 	},
 	username: {
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
-		required true
+		required: true
 	},
 	profileImageUrl: {
 		type: String
@@ -22,13 +22,13 @@ const userSchema = new mongoose.Schema({
 });
 
 // Function runs before each document in mongoose is saved
-userSchema.pre("save", async function() {
+userSchema.pre("save", async function(next) {
 	try {
-		if(!this.isModified("password")){
+		if (!this.isModified("password")) {
 			return next();
 		}
 		// Hashes password and saves
-		let hashedPassword = bcrypt.hash(this.password, 10);
+		let hashedPassword = await bcrypt.hash(this.password, 10);
 		this.password = hashedPassword;
 		return next();
 	} catch (err) {
@@ -37,14 +37,14 @@ userSchema.pre("save", async function() {
 });
 
 // Compares password with user password
-userSchema.method.comparePassword = asyn function(candidatePassword, next) {
+userSchema.method.comparePassword = async function(candidatePassword, next) {
 	try {
-		let isMatch = await.bcrypt.compare(candidatePassword, this.password);
+		let isMatch = await bcrypt.compare(candidatePassword, this.password);
 		return isMatch;
 	} catch (err) {
 		return next(err);
 	}
-}
+};
 
 const User = mongoose.model("User", userSchema);
 

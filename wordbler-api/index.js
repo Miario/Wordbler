@@ -10,6 +10,7 @@ const PORT = 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use("/api/auth", authRoutes);
 // all my routes here

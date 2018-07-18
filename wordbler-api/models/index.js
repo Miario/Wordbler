@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 mongoose.set("debug", true);
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/warbler", {
+mongoose.connect("mongodb://localhost:27017/wordbler", {
 	keepAlive: true,
-	useMongoClient: true
+	useNewUrlParser: true
 });
+
+module.exports.User = require("./user");
