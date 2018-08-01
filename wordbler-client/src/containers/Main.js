@@ -19,4 +19,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default withRouter(connect(mapStateToProps, null))(Main);
+export default withRouter(connect(mapStateToProps, null)(Main));
