@@ -21,13 +21,18 @@ export default class AuthForm extends Component {
 		e.preventDefault();
 		const authType = this.props.signUp ? "signup" : "signin";
 		this.props.onAuth(authType, this.state).then(() => {
-			console.log("Logged in Successfully");
+			console.log("Logged in");
 		});
 	};
 
 	render() {
 		const { email, username, password, profileImageUrl } = this.state;
-		const { heading, buttonText, signUp, errors } = this.props;
+		const { heading, buttonText, signUp, errors, history, removeError } = this.props;
+
+		history.listen(() => {
+			removeError();
+		});
+		
 		return (
 			<div>
 				<div className="row justify-content-md-center text-center">
