@@ -6,20 +6,20 @@ import AuthForm from "../components/AuthForm";
 import { authUser } from "../store/actions/auth";
 
 const Main = props => {
-	const { authUser } = props;
+	const { authUser, errors } = props;
 	return (
 		<div className="container">
 			<Switch>
 				<Route exact path="/" render={props => <Homepage {...props} />} />
 				<Route exact path ="/signin" render={props => {
 					return (
-						<AuthForm onAuth={authUser} buttonText="Log in" heading="Welcome Back." {...props} />
+						<AuthForm errors={errors} onAuth={authUser} buttonText="Log in" heading="Welcome Back." {...props} />
 					)	
 				}}
 				/>
 				<Route exact path ="/signup" render={props => {
 					return (
-						<AuthForm onAuth={authUser} signUp buttonText="Sign me up" heading="Join Warbler Today." {...props} />
+						<AuthForm errors={errors} onAuth={authUser} signUp buttonText="Sign me up" heading="Join Warbler Today." {...props} />
 					)	
 				}}
 				/>
@@ -30,7 +30,8 @@ const Main = props => {
 
 function mapStateToProps(state) {
 	return {
-		currentUser: state.currentUser
+		currentUser: state.currentUser,
+		errors: state.errors
 	};
 }
 

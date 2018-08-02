@@ -1,5 +1,5 @@
 require("dotenv").load();
-const jwt = require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
 
 // make sure the user is logged - Authentication
 exports.loginRequired = function(req, res, next) {
@@ -43,4 +43,4 @@ exports.ensureCorrectUser = function(req, res, next) {
 			message: "Unauthorized"
 		});
 	}
-}
+};
