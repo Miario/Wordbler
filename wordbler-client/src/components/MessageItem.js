@@ -8,7 +8,7 @@ const MessageItem = ({ date, profileImageUrl, text, username }) => (
 		<li className="list-group-item">
 			<img src={profileImageUrl || DefaultProfileImg} alt={username} height="100" width="100" className="timeline-image" />
 			<div className="message-area">
-				<Link to="/">@{username} $nbsp;</Link>
+				<Link to="/">@{username} &nbsp;</Link>
 				<span className="text-muted">
 					<Moment className="text-muted" format="Do MMM YYYY">
 						{date}
